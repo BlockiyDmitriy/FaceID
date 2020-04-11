@@ -7,12 +7,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.FaceDetector;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.widget.ImageView;
-import android.app.AlertDialog;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.widget.Toast;
+
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
@@ -30,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap myBitmap = BitmapFactory.decodeResource(
                 getApplicationContext().getResources(),
                 R.drawable.test1,
-                options
-        );
+                options);
 
         Paint myRectPaint = new Paint();
         myRectPaint.setStrokeWidth(5);
@@ -40,13 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
         Bitmap tempBitmap = Bitmap.createBitmap(myBitmap.getWidth(), myBitmap.getHeight(), Bitmap.Config.RGB_565);
         Canvas tempCanvas = new Canvas(tempBitmap);
-        tempCanvas.drawBitmap(myBitmap, 0 ,0, null);
+        tempCanvas.drawBitmap(myBitmap, 0, 0, null);
 
         FaceDetector faceDetector = new FaceDetector.Builder(getApplicationContext()).setTrackingEnabled(false).build();
-        if(!faceDetector.isOperational()){
-            new AlertDialog.Builder(v.getContext()).setMessage("Could not set up the face detector!").show();
+        if (!faceDetector.isOperational()) {
+            Toast.makeText(this, "Cold not set up the Face Detector!", Toast.LENGTH_LONG).show();
             return;
         }
+
         Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
         SparseArray <Face> faces = faceDetector.detect(frame);
 
