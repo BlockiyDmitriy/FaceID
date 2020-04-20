@@ -3,6 +3,7 @@ package com.example.faceid;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 options.inMutable = true;
                 Bitmap myBitmap = BitmapFactory.decodeResource(
                         getApplicationContext().getResources(),
-                        R.drawable.photo,
+                        R.drawable.image,
                         options);
 
                 Paint myRectPaint = new Paint();
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 myImageView.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
             }
             case R.id.choiceImg_btn: {
-
+                
             }
         }
     }
