@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Category description="" name="Колбасы"></Category>
+<Category description="" name="Компоты"></Category>
+<Category description="" name="Масла"></Category>
+<Category description="" name="Молочные"></Category>
+<Category description="" name="Замороженные овощи"></Category>
+<Category description="" name="Мучное"></Category>
+<Category description="" name="Мясо"></Category>
+<Category description="" name="Овощи"></Category>
+<Product>
+  <Name>Авокадо</Name>
+  <Gramms>100</Gramms>
+  <Protein>2,00</Protein>
+  <Fats>15,30</Fats>
+  <Carbs>4,10</Carbs>
+  <Calories>162,1</Calories>
+</Product>
+<Product>
+  <Name>Баклажаны</Name>
+  <Gramms>100</Gramms>
+  <Protein>1,20</Protein>
+  <Fats>0,10</Fats>
+  <Carbs>5,10</Carbs>
+  <Calories>24</Calories>
+</Product>

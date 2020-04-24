@@ -1,28 +1,21 @@
 package com.example.testnavigationview.ui.camera;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -30,28 +23,26 @@ import com.example.testnavigationview.R;
 
 import java.io.File;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
+public class CameraOpenBtnActivity extends AppCompatActivity {
 
-public class CameraBtnFragment extends Fragment {
+    private Button buttonImage;
+    private Button buttonVideo;
 
-    private CameraViewModel cameraViewModel;
+    private VideoView videoView;
+    private ImageView imageView;
+
+    private static final int REQUEST_ID_READ_WRITE_PERMISSION = 99;
+    private static final int REQUEST_ID_IMAGE_CAPTURE = 100;
+    private static final int REQUEST_ID_VIDEO_CAPTURE = 101;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        cameraViewModel = ViewModelProviders.of(this).get(CameraViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_camera, container, false);
-        final TextView textView = root.findViewById(R.id.text_camera);
-        cameraViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_camera_open_btn);
 
-        this.buttonImage = (Button) getView().findViewById(R.id.button_image);
-        this.buttonVideo = (Button) getView().findViewById(R.id.button_video);
-        this.videoView = (VideoView) getView().findViewById(R.id.videoView);
-        this.imageView = (ImageView) getView().findViewById(R.id.imageView);
+        this.buttonImage = (Button) this.findViewById(R.id.button_image);
+        this.buttonVideo = (Button) this.findViewById(R.id.button_video);
+        this.videoView = (VideoView) this.findViewById(R.id.videoView);
+        this.imageView = (ImageView) this.findViewById(R.id.imageView);
 
         this.buttonImage.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -66,18 +57,7 @@ public class CameraBtnFragment extends Fragment {
                 askPermissionAndCaptureVideo();
             }
         });
-        return root;
     }
-    private Button buttonImage;
-    private Button buttonVideo;
-
-    private VideoView videoView;
-    private ImageView imageView;
-
-    private static final int REQUEST_ID_READ_WRITE_PERMISSION = 99;
-    private static final int REQUEST_ID_IMAGE_CAPTURE = 100;
-    private static final int REQUEST_ID_VIDEO_CAPTURE = 101;
-
     private void captureImage() {
         // Create an implicit intent, for image capture.
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -93,9 +73,9 @@ public class CameraBtnFragment extends Fragment {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
 
             // Check if we have read/write permission
-            int readPermission = ActivityCompat.checkSelfPermission(getContext(),
+            int readPermission = ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE);
-            int writePermission = ActivityCompat.checkSelfPermission(getContext(),
+            int writePermission = ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
             if (writePermission != PackageManager.PERMISSION_GRANTED ||
@@ -148,7 +128,7 @@ public class CameraBtnFragment extends Fragment {
             this.startActivityForResult(intent, REQUEST_ID_VIDEO_CAPTURE); // (**)
 
         } catch(Exception e)  {
-            Toast.makeText(getContext(), "Error capture video: " +e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error capture video: " +e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -170,14 +150,14 @@ public class CameraBtnFragment extends Fragment {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(getContext(), "Permission granted!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Permission granted!", Toast.LENGTH_LONG).show();
 
                     this.captureVideo();
 
                 }
                 // Cancelled or denied.
                 else {
-                    Toast.makeText(getContext(), "Permission denied!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Permission denied!", Toast.LENGTH_LONG).show();
                 }
                 break;
             }
@@ -186,7 +166,7 @@ public class CameraBtnFragment extends Fragment {
 
     // When results returned
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_ID_IMAGE_CAPTURE) {
@@ -194,23 +174,23 @@ public class CameraBtnFragment extends Fragment {
                 Bitmap bp = (Bitmap) data.getExtras().get("data");
                 this.imageView.setImageBitmap(bp);
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getContext(), "Action canceled", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Action canceled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getContext(), "Action Failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Action Failed", Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == REQUEST_ID_VIDEO_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 Uri videoUri = data.getData();
                 Log.i("MyLog", "Video saved to: " + videoUri);
-                Toast.makeText(getContext(), "Video saved to:\n" +
+                Toast.makeText(this, "Video saved to:\n" +
                         videoUri, Toast.LENGTH_LONG).show();
                 this.videoView.setVideoURI(videoUri);
                 this.videoView.start();
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getContext(), "Action Cancelled.",
+                Toast.makeText(this, "Action Cancelled.",
                         Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getContext(), "Action Failed",
+                Toast.makeText(this, "Action Failed",
                         Toast.LENGTH_LONG).show();
             }
         }
