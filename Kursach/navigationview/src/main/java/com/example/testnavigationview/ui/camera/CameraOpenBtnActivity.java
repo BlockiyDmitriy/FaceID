@@ -59,10 +59,10 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
         });
     }
     private void captureImage() {
-        // Create an implicit intent, for image capture.
+        // Создайте неявное намерение для захвата изображения.
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        // Start camera and wait for the results.
+        //Запустите камеру и дождитесь результатов.
         this.startActivityForResult(intent, REQUEST_ID_IMAGE_CAPTURE);
     }
 
@@ -80,7 +80,7 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
 
             if (writePermission != PackageManager.PERMISSION_GRANTED ||
                     readPermission != PackageManager.PERMISSION_GRANTED) {
-                // If don't have permission so prompt the user.
+                //Если у вас нет разрешения, подскажите пользователю.
                 this.requestPermissions(
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -94,10 +94,10 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
 
     private void captureVideo() {
         try {
-            // Create an implicit intent, for video capture.
+            // Создать неявное намерение для захвата видео.
             Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 
-            // The external storage directory.
+            //Каталог внешнего хранилища.
             File dir = Environment.getExternalStorageDirectory();
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -107,7 +107,7 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
             File videoFile = new File(savePath);
             Uri videoUri = Uri.fromFile(videoFile);
 
-            // Specify where to save video files.
+            //Укажите, где сохранять видеофайлы.
             intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -124,7 +124,7 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
             //  Explanation: https://stackoverflow.com/questions/38200282
             // ================================================================================================
 
-            // Start camera and wait for the results.
+            //Запустите камеру и дождитесь результатов.
             this.startActivityForResult(intent, REQUEST_ID_VIDEO_CAPTURE); // (**)
 
         } catch(Exception e)  {
@@ -134,18 +134,14 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
     }
 
 
-    // When you have the request results
+    //Когда у вас есть результаты запроса
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //
         switch (requestCode) {
             case REQUEST_ID_READ_WRITE_PERMISSION: {
-
-                // Note: If request is cancelled, the result arrays are empty.
-                // Permissions granted (read/write).
+                // Запись: Если запрос отменен, результирующие массивы пусты.
+                //Разрешения предоставлены (read/write).
                 if (grantResults.length > 1
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
@@ -153,9 +149,8 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
                     Toast.makeText(this, "Permission granted!", Toast.LENGTH_LONG).show();
 
                     this.captureVideo();
-
                 }
-                // Cancelled or denied.
+                // Отменено или отказано.
                 else {
                     Toast.makeText(this, "Permission denied!", Toast.LENGTH_LONG).show();
                 }
@@ -164,7 +159,7 @@ public class CameraOpenBtnActivity extends AppCompatActivity {
         }
     }
 
-    // When results returned
+    //Когда результаты вернулись
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

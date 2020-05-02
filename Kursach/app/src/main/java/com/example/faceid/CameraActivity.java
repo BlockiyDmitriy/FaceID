@@ -135,14 +135,10 @@ public class CameraActivity extends AppCompatActivity {
 
     // When you have the request results
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //
         switch (requestCode) {
             case REQUEST_ID_READ_WRITE_PERMISSION: {
-
                 // Note: If request is cancelled, the result arrays are empty.
                 // Permissions granted (read/write).
                 if (grantResults.length > 1
