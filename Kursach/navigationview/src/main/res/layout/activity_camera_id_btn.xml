@@ -7,10 +7,10 @@
     tools:context=".ui.camera.CameraIdBtnActivity">
 
     <Button
-        android:id="@+id/detect_btn"
+        android:id="@+id/saveDetectImage_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Detect face" />
+        android:text="Save image"/>
 
     <ImageView
         android:id="@+id/image"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_galary"
+        android:id="@+id/fab_gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
