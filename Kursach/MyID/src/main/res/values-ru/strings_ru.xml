@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FaceID</string>
+    <string name="navigation_drawer_open">Открыть навигационную панель</string>
+    <string name="navigation_drawer_close">Закрыть навигационную панель</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Навигационный заголовок</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="menu_home">Дом</string>
+    <string name="menu_gallery">Галерея</string>
+    <string name="menu_slideshow">Слайдшоу</string>
+    <string name="menu_camera">Камера</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="nav_header_name">FaceID</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_camera">Открыть камеру</string>
+</resources>

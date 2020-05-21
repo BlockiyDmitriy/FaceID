@@ -1,4 +1,3 @@
 rootProject.name='FaceId'
 include ':app'
 include ':MyID'
-include ':myapplication'
