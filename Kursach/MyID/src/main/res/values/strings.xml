@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FaceID</string>
+    <string name="app_name" translatable="false">FaceID</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -13,9 +13,10 @@
     <string name="menu_camera">Camera</string>
 
     <string name="home_second">Home Second</string>
-    <string name="nav_header_name">FaceID</string>
+    <string name="nav_header_name" translatable="false">FaceID</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open_camera">Open camera</string>
+    <string name="choice_language">Choice Language</string>
 </resources>

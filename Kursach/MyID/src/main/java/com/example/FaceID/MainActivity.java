@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        // Операции для выбранного пункта меню
         switch (item.getItemId())
         {
             case R.id.action_settings:{
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Добавляет элементы в панель действий, если она присутствует.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
